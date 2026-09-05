@@ -1,0 +1,167 @@
+<!doctype html>
+<html lang="de">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="Sichere Passwortabfrage mit integriertem Passwortgenerator." />
+    <title>Access Point | Passwortabfrage</title>
+    <link rel="stylesheet" href="styles.css" />
+    <script src="script.js" defer></script>
+  </head>
+  <body>
+    <main class="page-shell">
+      <section class="intro-panel" aria-labelledby="page-title">
+        <div class="brand-mark" aria-hidden="true">AP</div>
+        <p class="eyebrow">Privater Bereich</p>
+        <h1 id="page-title">Willkommen im<br /><span>Access Point.</span></h1>
+        <p class="intro-copy">Ein kurzer Check, bevor du weitergehst. Nach dem Login wartet eine kompakte Wetterübersicht auf dich.</p>
+        <div class="security-note">
+          <span class="pulse-dot" aria-hidden="true"></span>
+          <span>Session geschützt</span>
+          <span class="note-divider" aria-hidden="true"></span>
+          <span id="date-label">Heute, sicher verbunden</span>
+        </div>
+        <div class="orb orb-one" aria-hidden="true"></div>
+        <div class="orb orb-two" aria-hidden="true"></div>
+      </section>
+
+      <section class="form-panel" aria-labelledby="form-title">
+        <div class="form-heading">
+          <div>
+            <p class="step-label">Schritt 01 <span>/ 01</span></p>
+            <h2 id="form-title">Identität bestätigen</h2>
+          </div>
+          <div class="lock-badge" aria-hidden="true">&#128274;</div>
+        </div>
+
+        <form id="access-form" novalidate>
+          <div class="field-group">
+            <label for="full-name">Vollständiger Name</label>
+            <div class="input-wrap">
+              <span class="input-icon" aria-hidden="true">&#9679;</span>
+              <input id="full-name" name="fullName" type="text" autocomplete="name" placeholder="Vorname und Nachname" />
+            </div>
+            <p class="field-error" id="name-error" aria-live="polite"></p>
+          </div>
+
+          <div class="field-group">
+            <div class="label-row">
+              <label for="password">Passwort</label>
+              <span class="optional-hint">mind. 10 Zeichen</span>
+            </div>
+            <div class="input-wrap password-wrap">
+              <span class="input-icon" aria-hidden="true">&#9670;</span>
+              <input id="password" name="password" type="password" autocomplete="current-password" placeholder="Dein Passwort" />
+              <button class="icon-button" id="toggle-password" type="button" aria-label="Passwort anzeigen" title="Passwort anzeigen">&#128065;</button>
+            </div>
+            <p class="field-error" id="password-error" aria-live="polite"></p>
+          </div>
+
+          <button class="generator-button" id="generate-password" type="button">
+            <span class="sparkle" aria-hidden="true">&#10024;</span>
+            Zufälliges Passwort erstellen
+            <span class="arrow" aria-hidden="true">&#8599;</span>
+          </button>
+
+          <button class="submit-button" type="submit">
+            <span>Anmelden</span>
+            <span class="submit-arrow" aria-hidden="true">&#8594;</span>
+          </button>
+          <button class="register-link" id="show-register" type="button">Neues Konto erstellen <span aria-hidden="true">&#8599;</span></button>
+          <p class="form-status" id="form-status" role="status" aria-live="polite"></p>
+        </form>
+
+        <form id="register-form" class="register-form is-hidden" novalidate>
+          <div class="field-group">
+            <label for="register-name">Vollständiger Name</label>
+            <div class="input-wrap">
+              <span class="input-icon" aria-hidden="true">&#9679;</span>
+              <input id="register-name" type="text" autocomplete="name" placeholder="Vorname und Nachname" />
+            </div>
+            <p class="field-error" id="register-name-error" aria-live="polite"></p>
+          </div>
+          <div class="field-group">
+            <label for="register-password">Passwort</label>
+            <div class="input-wrap">
+              <span class="input-icon" aria-hidden="true">&#9670;</span>
+              <input id="register-password" type="password" autocomplete="new-password" placeholder="Mindestens 10 Zeichen" />
+            </div>
+            <p class="field-error" id="register-password-error" aria-live="polite"></p>
+          </div>
+          <button class="submit-button" type="submit">
+            <span>Konto anlegen</span>
+            <span class="submit-arrow" aria-hidden="true">&#8594;</span>
+          </button>
+          <button class="register-link" id="show-login" type="button">Zurück zur Anmeldung</button>
+          <p class="form-status" id="register-status" role="status" aria-live="polite"></p>
+        </form>
+
+        <p class="privacy-note"><span aria-hidden="true">&#10003;</span> Demo-Daten werden nur lokal in diesem Browser gespeichert.</p>
+      </section>
+    </main>
+
+    <section class="dashboard is-hidden" id="dashboard" aria-labelledby="dashboard-title">
+      <header class="dashboard-header">
+        <div>
+          <p class="eyebrow">Dein Überblick</p>
+          <h2 id="dashboard-title">Guten Morgen, <span id="current-user">Leon</span>.</h2>
+          <p class="dashboard-subtitle" id="role-label">Admin-Modus aktiv</p>
+        </div>
+        <button class="logout-button" id="logout" type="button">Abmelden <span aria-hidden="true">&#8599;</span></button>
+      </header>
+
+      <div class="weather-toolbar">
+        <div>
+          <p class="section-kicker">Öffentliche Wetterdaten</p>
+          <h3>Wetter heute</h3>
+        </div>
+        <label class="location-control" for="location-input">
+          <span>Ort</span>
+          <input id="location-input" value="Berlin" placeholder="Stadt suchen" />
+          <button id="weather-search" type="button" aria-label="Wetter suchen">&#8594;</button>
+        </label>
+      </div>
+      <p class="weather-status" id="weather-status" role="status">Wetterdaten werden geladen ...</p>
+      <div class="weather-mood" id="weather-mood" aria-live="polite"></div>
+      <div class="weather-grid" id="weather-grid"></div>
+
+      <section class="comparison-panel is-hidden" id="comparison-panel" aria-labelledby="comparison-title">
+        <div class="comparison-heading">
+          <div>
+            <p class="section-kicker">Städtevergleich</p>
+            <h3 id="comparison-title">Temperatur im Vergleich</h3>
+          </div>
+          <button class="close-button" id="close-comparison" type="button" aria-label="Vergleich schließen">&#10005;</button>
+        </div>
+        <p class="comparison-status" id="comparison-status">Vergleich wird geladen ...</p>
+        <div class="history-chart" id="history-chart" aria-label="Sieben-Tage-Verlauf"></div>
+        <div class="comparison-grid" id="comparison-grid"></div>
+      </section>
+
+      <section class="admin-tools is-hidden" id="admin-tools" aria-labelledby="admin-title">
+        <div class="admin-heading">
+          <div>
+            <p class="section-kicker">Nur für Admins</p>
+            <h3 id="admin-title">Konten verwalten</h3>
+          </div>
+          <span class="admin-badge">Vollzugriff</span>
+        </div>
+        <div class="account-list" id="account-list"></div>
+        <form class="admin-create-form" id="admin-create-form" novalidate>
+          <div>
+            <p class="section-kicker">Neues Konto</p>
+            <h4>Benutzerdefinierten Zugang anlegen</h4>
+          </div>
+          <input id="admin-user-name" type="text" placeholder="Vollständiger Name" aria-label="Vollständiger Name für neues Konto" />
+          <input id="admin-user-password" type="password" placeholder="Passwort, mind. 10 Zeichen" aria-label="Passwort für neues Konto" />
+          <select id="admin-user-role" aria-label="Rolle für neues Konto">
+            <option value="user">Benutzer · Nur ansehen</option>
+            <option value="admin">Admin · Vollzugriff</option>
+          </select>
+          <button class="admin-create-button" type="submit">Konto erstellen</button>
+          <p class="form-status" id="admin-create-status" role="status" aria-live="polite"></p>
+        </form>
+      </section>
+    </section>
+  </body>
+</html>
